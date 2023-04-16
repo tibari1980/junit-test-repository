@@ -21,4 +21,9 @@ public interface EmployeeRepository  extends JpaRepository<EmployeBean, Long>{
 	List<EmployeBean> findByAgeLessThanEqual(int age);
 	
 	EmployeBean  findByEmailIgnoreCase(String email);
+	
+	List<EmployeBean> findByFirstNameIgnoreCase(String firstName);
+	List<EmployeBean> findByLastNameIgnoreCase(String lastName);
+	List<EmployeBean> findByAge(int age);
+	
 }

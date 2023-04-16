@@ -1,7 +1,6 @@
 package com.arcesi.gestionemployee.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNoException;
 
 import java.util.List;
 
@@ -9,11 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.arcesi.gestionemployee.entities.EmployeBean;
-
-import lombok.AllArgsConstructor;
 
 
 
@@ -114,9 +110,30 @@ public class EmployeeRepositoryTest {
 
 	
 	@Test
-	public void findByEmailIgnoreCaseShouldRetrieveOne() {
+	public void findByEmailIgnoneCaseShouldRetrieveOne () {
 		EmployeBean employeBean=employeeRepository.findByEmailIgnoreCase("tibarinewdzign@gmail.com");
 		assertThat(employeBean!=null);
 		
+	}
+	
+	
+	@Test
+	public void findByFirstNameIgnoreCaseShouldRetrieveOne() {
+		List<EmployeBean> employeBeans=employeeRepository.findByFirstNameIgnoreCase("tibari");
+		assertThat(employeBeans).hasSize(1);
+		assertThat(employeBeans).extracting(EmployeBean::getEmail).containsExactly("tibarinewdzigh@gmail.com");
+		assertThat(employeBeans.get(0)!=null);
+		assertThat(employeBeans.get(0).getLastName().equalsIgnoreCase("Zeroual"));
+		assertThat(employeBeans.get(0).getAge()==42);
+	}
+	
+	
+	@Test
+	public void findByAgeShouldRetrieveOne() {
+		List<EmployeBean> employeBeans=employeeRepository.findByAge(20);
+		assertThat(employeBeans).hasSize(1);
+		assertThat(employeBeans).extracting(EmployeBean::getEmail).containsExactly("lynakazzar@gmail.com");
+		assertThat(employeBeans.get(0).getAge()>=0);
+		assertThat(employeBeans.get(0).getFirstName().equals("kazzar"));
 	}
 }
